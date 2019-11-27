@@ -3,7 +3,7 @@
 NOTE: Notice that <% %> and not <%= %> (No '=' sign)
 because we aren't outputting some kind of variable-->
 
-<% @posts.each do |post| %>
+<% @posts.reverse_each do |post| %>
     <div class="card">
         <div class="card-body">
             <h3 class="card-title"><%= post.title %></h3>
