@@ -1,0 +1,33 @@
+<h3><br><br>Add New Blog Post</h3>
+<!-- Use a form helper for post (do |f|, f can be used to create labels and fields) -->
+<!-- "url: posts_path" submits the enterred inputs back to posts controller's create method/action -->
+<%= form_for :post, url: posts_path do |f| %>
+    <!--Error handling to complement our field constraints in model
+    This loops through the error messages (if they exist) and
+    output each error message wrapped in an alert div
+    Note: Make sure to add post reference in new action-->
+    <% if @post.errors.any? %>
+        <% @post.errors.full_messages.each do |msg| %>
+            <div class="alert alert-danger"><%= msg %></div>
+        <% end %>
+    <% end %>
+    <p>
+        <!-- Create label "title" and text field to input blog title -->
+        <%= f.label :title %><br>
+        <!--We can wrap :title to add a second parameter which would be an object
+        More specifically a bootstrap class called form-control-->
+        <%= f.text_field(:title, {:class => 'form-control'}) %>
+    </p>
+
+    <p>
+        <!-- Create label "body" and text area to input blog text -->
+        <!-- Unlike text_fields, text area facilitates for multi line text inputs perfect for our blog posts -->
+        <%= f.label :body %><br>
+        <%= f.text_area(:body, {:class => 'form-control'}) %>
+    </p>
+
+    <p>
+        <!-- Creates a button to submit inputted data -->
+        <%= f.submit({:class => 'btn btn-primary'}) %>
+    </p>
+<% end %>

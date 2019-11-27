@@ -1,0 +1,36 @@
+<!--Nearly identical to new.html so copy from there
+DIFFERENCES: 
+    1.) URL posts_path -> post_path(@post)
+    2.) Add method: :patch
+-->
+<h1><br><br>Edit Post</h1>
+<%= form_for(@post) do |f| %>
+    <!--Error handling to complement our field constraints in model
+    This loops through the error messages (if they exist) and
+    output each error message wrapped in an alert div
+    Note: Make sure to add post reference in new action-->
+    <% if @post.errors.any? %>
+        <% @post.errors.full_messages.each do |msg| %>
+            <div class="alert alert-danger"><%= msg %></div>
+        <% end %>
+    <% end %>
+    <p>
+        <!-- Create label "title" and text field to input blog title -->
+        <%= f.label :title %><br>
+        <!--We can wrap :title to add a second parameter which would be an object
+        More specifically a bootstrap class called form-control-->
+        <%= f.text_field(:title, {:class => 'form-control'}) %>
+    </p>
+
+    <p>
+        <!-- Create label "body" and text area to input blog text -->
+        <!-- Unlike text_fields, text area facilitates for multi line text inputs perfect for our blog posts -->
+        <%= f.label :body %><br>
+        <%= f.text_area(:body, {:class => 'form-control'}) %>
+    </p>
+
+    <p>
+        <!-- Creates a button to submit inputted data -->
+        <%= f.submit({:class => 'btn btn-primary'}) %>
+    </p>
+<% end %>
