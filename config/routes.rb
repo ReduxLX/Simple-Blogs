@@ -7,6 +7,11 @@ Rails.application.routes.draw do
   # get '<url_name>' => '<controller>#<method/action>
   get 'about' => 'pages#about', as: 'about'
 
-  resources :posts
+  # Add posts as a resource
+  resources :posts do
+    # Add comments as a resource such that their url is nested
+    #/posts/:post_id/comments/:id
+    resources :comments
+  end
 
 end

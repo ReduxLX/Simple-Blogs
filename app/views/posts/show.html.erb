@@ -1,6 +1,6 @@
 <!--Since views have access to instance variables,
 We just set h2 as the post's title and body as the post's body-->
-<h4><br><br><br><%= @post.title %></h4>
+<h2><br><br><br><%= @post.title %></h2>
 <p><%= @post.body %></p>
 <hr>
 <%= link_to  "Edit", edit_post_path(@post), :class => 'btn btn-outline-primary' %>
@@ -8,3 +8,29 @@ We just set h2 as the post's title and body as the post's body-->
                      method: :delete,
                      data: {confirm: 'Are you sure?'},
                      :class => 'btn btn-outline-danger' %>
+
+<hr>
+<!--Show all comments in card view (taken from index.html)-->
+<h3>Comments(<%= @post.comments.count %>)</h3>
+<% @post.comments.each do |comment| %>
+    <div class="card">
+        <div class="card-body">
+            <p class="card-title"><strong><%= comment.username %>: <%= comment.body %></strong></p>
+        </div>
+    </div>
+<% end %>
+<!--Adding Comments-->
+<h3>Add Comment</h3>
+<%= form_for([@post, @post.comments.build]) do |f| %>
+    <p>
+        <%= f.label :username %><br>
+        <%= f.text_field(:username, {:class => 'form-control'}) %>
+    </p>
+    <p>
+        <%= f.label :body %><br>
+        <%= f.text_area(:body, {:class => 'form-control'}) %>
+    </p>
+    <p>
+        <%= f.submit({:class => 'btn btn-primary', :title => "Comment Must not be empty"}) %>
+    </p>
+<% end %>
